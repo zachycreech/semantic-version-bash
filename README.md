@@ -24,3 +24,8 @@ Script | Useage
 |parse_commits.sh| -b branch -t access_token |
 |format_release_notes| -p previous_version -n new_version -r release_notes|
 |create_release.sh| -p previous_version -n new_version -r release_notes -t access_token
+
+## Version Override
+If you want to start from a specific version, you will need to change the .gitlab-ci.yml. And push the change to your main branch. <br />
+Line 35:    - /scripts/create_tags.sh -i release -t "$PROJECT_ACCESS_TOKEN" -v (the verision you want, i.e. 1.69.3)
+
