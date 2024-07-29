@@ -52,9 +52,16 @@ fi
 if [ -n "$version_override" ]; then
   latest_staging_tag="staging.$version_override"
   echo "Overriding Version with $version_override"
+  git tag "$latest_staging_tag"
+
+  echo "Created Staging Override tag: $latest_staging_tag"
+  git push deploy-target "$latest_staging_tag"
+  git fetch --all
 else
   echo "No version override set."
 fi
+
+
 
 # Remove the "staging." prefix to get the version part
 latest_version="${latest_staging_tag#staging.}"
