@@ -1,12 +1,14 @@
 variables:
-  DEPLOY_TARGET: "CHANGE ME: yourproject.git"
-  MAIN_BRANCH: "CHANGE ME: your production branch"
-  DEVELOP_BRANCH: "CHANGE ME: your working branch"
-  SSH_KEY: "CHANGE ME: to ssh key"
-  PROJECT_ACCESS_TOKEN: "CHANGE ME: to project access token"
-  KNOWN_HOST: "CHANGE ME: company repo"
+  DEPLOY_TARGET: "yourtarget.git"
+  MAIN_BRANCH: "main"
+  DEVELOP_BRANCH: "develop"
+  SSH_KEY: "$SSH_PRIVATE_KEY"
+  PROJECT_ACCESS_TOKEN: "$GITLAB_TOKEN"
+  KNOWN_HOST: "gitlab.company.com"
+  PROJECT_URL: "https://gitlab.company.com/api/v4/projects/#ID/releases"
+  WEBHOOK_URL: "$SLACK_WEBHOOK_URL"
 
-image: CHANGE ME registry.container 
+image: registry.company.com/cpm/semantic-bash
 
 stages:
   - tag
@@ -22,9 +24,9 @@ before_script:
   - git remote
 
 tag_release_develop:
-  stage: tag
+  stage: tag 
   script:
-    - /scripts/parse_commits.sh -b $DEVELOP_BRANCH -t "$PROJECT_ACCESS_TOKEN"
+    - /scripts/parse_commits.sh -b $DEVELOP_BRANCH -t "$GITLAB_TOKEN" -u "$PROJECT_URL" -w "$WEBHOOK_URL"
  
   rules:
     - if: '$CI_COMMIT_BRANCH == $DEVELOP_BRANCH'
@@ -32,7 +34,7 @@ tag_release_develop:
 tag_release_main:
   stage: tag
   script:
-    - /scripts/create_tags.sh -i release -t "$PROJECT_ACCESS_TOKEN"
+    - /scripts/create_tags.sh -v release -t "$GITLAB_TOKEN" -u "$PROJECT_URL" -w "$WEBHOOK_URL" 
     
   rules:
     - if: '$CI_COMMIT_BRANCH == $MAIN_BRANCH'
