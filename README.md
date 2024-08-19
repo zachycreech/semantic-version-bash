@@ -35,6 +35,9 @@ I have included the webhooks I used to format the release notes generated into a
 ## Hotfix
 If you need to commit a hotfix to your production branch, this bot will add X.X.X.1, and if that is found it will increment that final number. 
 
+## Examples
+### Slack
 ![image](https://github.com/user-attachments/assets/fa3c1ee6-6211-4d02-803e-55fc04cb7757)
+### Release Notes on Gitlab
 ![image](https://github.com/user-attachments/assets/0234747e-528c-48c0-a41d-6193770ee657)
 
