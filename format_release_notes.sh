@@ -1,15 +1,16 @@
 #!/bin/bash
 format_release_notes(){
     usage() {
-        echo "Usage: $0 -p prev_version -n new_version -r release_notes"
+        echo "Usage: $0 -p prev_version -n new_version -r release_notes -u project_url"
         exit 1
     }
 
-    while getopts "p:n:r:" opt; do
+    while getopts "p:n:r:u:" opt; do
         case $opt in
             p) previous_version=$OPTARG ;;
             n) new_version=$OPTARG ;;
             r) unformatted_release_notes=$OPTARG ;;
+            u) project_url=$OPTARG ;;
             \?)
                 echo "Invalid option: -$OPTARG" >&2
                 exit 1
@@ -21,11 +22,10 @@ format_release_notes(){
         esac
     done
 
-    if [ -z "$previous_version" ] || [ -z "$new_version" ] || [ -z "$unformatted_release_notes" ]; then
+    if [ -z "$previous_version" ] || [ -z "$new_version" ] || [ -z "$unformatted_release_notes" ] || [ -z "$project_url" ]]; then
         usage
     fi
 
-    project_url="https://gitlab.scanifly.com/cpm/semantic-test"
     release_title="## [$new_version]($project_url/compare/$previous_version...$new_version)"
     declare -A sections=(
         ["feat"]="🚀 Features"

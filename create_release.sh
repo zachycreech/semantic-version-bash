@@ -31,7 +31,7 @@ fi
 
 echo "$unformatted_release_notes"
 source ./format_release_notes.sh
-release_notes=$(format_release_notes -p"$previous_version" -n"$new_version" -r"$unformatted_release_notes")
+release_notes=$(format_release_notes -p"$previous_version" -n"$new_version" -r"$unformatted_release_notes" -u"$project_url")
 
 echo "curl POST request"
 

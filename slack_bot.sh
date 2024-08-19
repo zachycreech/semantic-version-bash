@@ -43,7 +43,7 @@ fi
 project_name=$(echo "$commit_path" | awk -F'/' '{print $(NF-3)}')
 
 
-format_release_notes() {
+format_slack_release_notes() {
     local notes="$1"
     local project_name="$2"
 
@@ -82,7 +82,7 @@ create_sections() {
 }
 
 # Format the release notes
-formatted_notes=$(format_release_notes "$release_notes")
+formatted_notes=$(format_slack_release_notes "$release_notes")
 
 # Create sections from the formatted notes
 sections=$(create_sections "$formatted_notes")
